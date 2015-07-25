@@ -11,158 +11,188 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
-/** Редактирование шаблонов и просмотр элементов буфера обмена*/
-public class TplEditorActivity extends AppCompatActivity
+
+
+/**
+ * Редактирование шаблонов и просмотр элементов буфера обмена
+ */
+public class TplEditorActivity
+        extends AppCompatActivity
 {
-/** Если эта EXTRA есть в стартовом Intent'е - значит нужно показать вхождение буфера обмена  */    
+    /**
+     * Если эта EXTRA есть в стартовом Intent'е - значит нужно показать вхождение буфера обмена
+     */
     public static final String EXTRA_CLIPBOARD_ENTRY = "e_clp";
-/** Дата элемента буфера обмена*/    
-    Long m_clipbrdDate=null;
-/** Поле ввода имени */    
+    /**
+     * Дата элемента буфера обмена
+     */
+    Long m_clipbrdDate = null;
+    /**
+     * Поле ввода имени
+     */
     EditText m_edName;
-/** Поле ввода текста */
+    /**
+     * Поле ввода текста
+     */
     EditText m_edText;
-/** Обработчик нажатия кнопок в окне*/    
+    /**
+     * Обработчик нажатия кнопок в окне
+     */
     View.OnClickListener m_clkListener = new View.OnClickListener()
     {
         @Override
         public void onClick(View v)
         {
-            switch(v.getId())
-            {
-                case  R.id.tpl_save: onSave(); break;
-                case  R.id.tpl_spec_options: onSpecOptions(); break;
-                case  R.id.close: 
-                        finish();
-                        if(m_clipbrdDate==null&&Templates.inst!=null)
-                            Templates.inst.onCloseEditor();
-                        break;
-                case R.id.delete:delete();break;
+            switch (v.getId()) {
+                case R.id.tpl_save:
+                    onSave();
+                    break;
+                case R.id.tpl_spec_options:
+                    onSpecOptions();
+                    break;
+                case R.id.close:
+                    finish();
+                    if (m_clipbrdDate == null && Templates.inst != null) {
+                        Templates.inst.onCloseEditor();
+                    }
+                    break;
+                case R.id.delete:
+                    delete();
+                    break;
             }
         }
     };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        if(Templates.inst==null&&!getIntent().hasExtra(EXTRA_CLIPBOARD_ENTRY))
+        if (Templates.inst == null && !getIntent().hasExtra(EXTRA_CLIPBOARD_ENTRY)) {
             finish();
+        }
         View v = getLayoutInflater().inflate(R.layout.tpl_editor, null);
         v.findViewById(R.id.tpl_save).setOnClickListener(m_clkListener);
         v.findViewById(R.id.close).setOnClickListener(m_clkListener);
         v.findViewById(R.id.delete).setOnClickListener(m_clkListener);
-        View bSpec =v.findViewById(R.id.tpl_spec_options); 
+        View bSpec = v.findViewById(R.id.tpl_spec_options);
         bSpec.setOnClickListener(m_clkListener);
-        m_edName = (EditText)v.findViewById(R.id.tpl_name);
-        m_edText = (EditText)v.findViewById(R.id.tpl_text);
+        m_edName = (EditText) v.findViewById(R.id.tpl_name);
+        m_edText = (EditText) v.findViewById(R.id.tpl_text);
         int pos = -1;
         pos = getIntent().getIntExtra(EXTRA_CLIPBOARD_ENTRY, -1);
-        if(pos>-1)
-        {
+        if (pos > -1) {
             setTitle(getString(R.string.mm_multiclipboard));
             Cursor c = st.stor().getClipboardCursor();
             v.findViewById(R.id.tpl_save).setVisibility(View.GONE);
             v.findViewById(R.id.tpl_spec_options).setVisibility(View.GONE);
             m_edName.setVisibility(View.GONE);
             m_edText.setFocusableInTouchMode(false);
-            if(c!=null)
-            {
-                c.move(0-pos);
+            if (c != null) {
+                c.move(0 - pos);
                 String cp = c.getString(0);
                 m_clipbrdDate = new Long(c.getLong(2));
                 m_edText.setText(cp);
                 c.close();
             }
-        }
-        else
-        {
-            File f =Templates.inst.m_editFile; 
-            if(Templates.inst.isEditFolder())
-            {
+        } else {
+            File f = Templates.inst.m_editFile;
+            if (Templates.inst.isEditFolder()) {
                 setTitle(R.string.tpl_new_folder);
                 m_edName.setHint(R.string.tpl_folder_name);
-                m_edText.getLayoutParams().width=0;
-                bSpec.getLayoutParams().width=0;
+                m_edText.getLayoutParams().width = 0;
+                bSpec.getLayoutParams().width = 0;
             }
-            if(f!=null)
-            {
+            if (f != null) {
                 m_edName.setText(f.getName());
-                if(!f.isDirectory())
-                {
+                if (!f.isDirectory()) {
                     String txt = Templates.getFileString(f);
-                    if(txt!=null)
+                    if (txt != null) {
                         m_edText.setText(txt);
+                    }
                 }
                 v.findViewById(R.id.delete).getLayoutParams().width = -2;
             }
-            m_edName.setOnFocusChangeListener(new OnFocusChangeListener()
-            {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus)
-                {
-                    if(v==m_edName&&hasFocus)
+            m_edName.setOnFocusChangeListener(
+                    new OnFocusChangeListener()
                     {
-                        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT);
-                    }
-                }
-            });
+                        @Override
+                        public void onFocusChange(
+                                View v,
+                                boolean hasFocus)
+                        {
+                            if (v == m_edName && hasFocus) {
+                                InputMethodManager imm =
+                                        (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                                imm.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT);
+                            }
+                        }
+                    });
         }
         setContentView(v);
         m_edName.requestFocusFromTouch();
     }
+
+
     @Override
     protected void onDestroy()
     {
-        if(Templates.inst!=null&&m_clipbrdDate==null)
+        if (Templates.inst != null && m_clipbrdDate == null) {
             Templates.inst.onCloseEditor();
+        }
         super.onDestroy();
     }
-/** Обработка нажатия на кнопку "Сохранить". Только для шаблона */    
+
+
+    /**
+     * Обработка нажатия на кнопку "Сохранить". Только для шаблона
+     */
     void onSave()
     {
-        if(Templates.inst==null)
+        if (Templates.inst == null) {
             finish();
-        
+        }
+
         String n = m_edName.getEditableText().toString();
-        if(n.length()==0)
-        {
+        if (n.length() == 0) {
             Toast.makeText(this, getString(R.string.tpl_fields_empty), 500).show();
             return;
         }
         finish();
-        if(Templates.inst==null)
+        if (Templates.inst == null) {
             return;
-        n = st.normalizeFileName(n);
-        if(Templates.inst.isEditFolder())
-        {
-            Templates.inst.saveFolder(n);
         }
-        else
-        {
+        n = st.normalizeFileName(n);
+        if (Templates.inst.isEditFolder()) {
+            Templates.inst.saveFolder(n);
+        } else {
             String t = m_edText.getEditableText().toString();
-            if(n.length()==0|t.length()==0)
-            {
+            if (n.length() == 0 | t.length() == 0) {
                 Toast.makeText(this, getString(R.string.tpl_fields_empty), 500).show();
                 return;
             }
-            Templates.inst.saveTemplate(n,t);
+            Templates.inst.saveTemplate(n, t);
         }
         Templates.inst.onCloseEditor();
     }
-/** Удаление элемента, открытого в редакторе (шаблона, папки шаблонов, элемента буфера обмена)*/    
+
+
+    /**
+     * Удаление элемента, открытого в редакторе (шаблона, папки шаблонов, элемента буфера обмена)
+     */
     void delete()
     {
-        if(m_clipbrdDate!=null)
-        {
+        if (m_clipbrdDate != null) {
             st.stor().removeClipboardByDate(m_clipbrdDate.longValue(), 0);
-            if(ComMenu.inst!=null)
+            if (ComMenu.inst != null) {
                 ComMenu.inst.removeLastLongClicked();
+            }
             finish();
             return;
         }
-        String query = getString(R.string.tpl_delete,Templates.inst.m_editFile.getName());
-        new Dlg.RunOnYes(this,query){
+        String query = getString(R.string.tpl_delete, Templates.inst.m_editFile.getName());
+        new Dlg.RunOnYes(this, query)
+        {
             @Override
             public void run()
             {
@@ -171,38 +201,48 @@ public class TplEditorActivity extends AppCompatActivity
             }
         };
     }
+
+
     @Override
-    public void onBackPressed() 
+    public void onBackPressed()
     {
         finish();
-    };
-/** Меню специальных инструкций для добавления в шаблон */    
+    }
+
+
+    ;
+
+
+    /**
+     * Меню специальных инструкций для добавления в шаблон
+     */
     void onSpecOptions()
     {
         int rlist = R.layout.tpl_instr_list;
-        final ArrayAdapter<String> ar = new ArrayAdapter<String>(this, 
-                                                    rlist,
-                                                    getResources().getStringArray(R.array.tpl_spec_instructions)
-                                                    );
-        Dlg.CustomMenu(this, ar, null, new st.UniObserver()
-        {
-            @Override
-            public int OnObserver(Object param1, Object param2)
-            {
-                int which = ((Integer)param1).intValue();
-                if(which>=0)
+        final ArrayAdapter<String> ar = new ArrayAdapter<String>(
+                this, rlist, getResources().getStringArray(R.array.tpl_spec_instructions));
+        Dlg.CustomMenu(
+                this, ar, null, new st.UniObserver()
                 {
-                    String txt = ar.getItem(which);
-                    int f = txt.indexOf(' ');
-                    if(f>0)
-                        txt = txt.substring(0,f);
-                    int s = m_edText.getSelectionStart();
-                    int e = m_edText.getSelectionEnd();
-                    m_edText.getText().replace(s<e?s:e,e>s?e:s, txt);
-                }
-                return 0;
-            }
-        });
-        
+                    @Override
+                    public int OnObserver(
+                            Object param1,
+                            Object param2)
+                    {
+                        int which = ((Integer) param1).intValue();
+                        if (which >= 0) {
+                            String txt = ar.getItem(which);
+                            int f = txt.indexOf(' ');
+                            if (f > 0) {
+                                txt = txt.substring(0, f);
+                            }
+                            int s = m_edText.getSelectionStart();
+                            int e = m_edText.getSelectionEnd();
+                            m_edText.getText().replace(s < e ? s : e, e > s ? e : s, txt);
+                        }
+                        return 0;
+                    }
+                });
+
     }
 }

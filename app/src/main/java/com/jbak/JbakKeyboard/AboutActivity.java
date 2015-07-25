@@ -6,23 +6,27 @@ import android.view.View;
 import android.widget.TextView;
 import com.jbak.CustomGraphics.ColorsGradientBack;
 
-public class AboutActivity extends AppCompatActivity
+
+public class AboutActivity
+        extends AppCompatActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         View v = getLayoutInflater().inflate(R.layout.about, null);
-        v.setBackgroundDrawable(new ColorsGradientBack().setCorners(0, 0).setGap(0).getStateDrawable());
-        try{
+        v.setBackgroundDrawable(
+                new ColorsGradientBack().setCorners(0, 0).setGap(0).getStateDrawable());
+        try {
             String vers = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-            String app = getString(R.string.about_version)+" "+vers+"\n\n"
-                           +getString(R.string.about_market)+" https://market.android.com/details?id="+getPackageName()
-                           +"\n\n"+getString(R.string.about_web); 
-            ((TextView)v.findViewById(R.id.version)).setText(app);
+            String app = getString(R.string.about_version) + " " + vers + "\n\n" +
+                         getString(R.string.about_market) +
+                         " https://market.android.com/details?id=" + getPackageName() + "\n\n" +
+                         getString(R.string.about_web);
+            ((TextView) v.findViewById(R.id.version)).setText(app);
+        } catch (Throwable e) {
         }
-        catch (Throwable e) {}
-        
+
         setContentView(v);
     }
 }

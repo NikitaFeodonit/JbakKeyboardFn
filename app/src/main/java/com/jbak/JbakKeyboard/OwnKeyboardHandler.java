@@ -11,29 +11,35 @@ import com.jbak.JbakKeyboard.JbKbd.LatinKey;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class OwnKeyboardHandler extends Handler
+
+public class OwnKeyboardHandler
+        extends Handler
 {
-    int repeatInterval = 0;
-    int longPressInterval = 500;
-    int deltaLongPress = 0;
-    int deltaRepeatStart = 0;
+    int repeatInterval      = 0;
+    int longPressInterval   = 500;
+    int deltaLongPress      = 0;
+    int deltaRepeatStart    = 0;
     int firstRepeatInterval = 400;
-    public static final int MSG_SHOW_PREVIEW = 1;
+    public static final int MSG_SHOW_PREVIEW   = 1;
     public static final int MSG_REMOVE_PREVIEW = 2;
-    public static final int MSG_REPEAT = 3;
-    public static final int MSG_LONGPRESS = 4;
-    public static final int MSG_INVALIDATE = 5;
-    public static final int MSG_MY_REPEAT = 6;
-    public static final int MSG_MY_LONG_PRESS = 7;
-    Handler m_existHandler;
-    TextView m_PreviewText;
-    Method m_showKey;
-    Method m_repeatKey;
-    Method m_openPopupIfRequired;
+    public static final int MSG_REPEAT         = 3;
+    public static final int MSG_LONGPRESS      = 4;
+    public static final int MSG_INVALIDATE     = 5;
+    public static final int MSG_MY_REPEAT      = 6;
+    public static final int MSG_MY_LONG_PRESS  = 7;
+    Handler   m_existHandler;
+    TextView  m_PreviewText;
+    Method    m_showKey;
+    Method    m_repeatKey;
+    Method    m_openPopupIfRequired;
     JbKbdView m_kv;
-    public boolean m_bSuccessInit;
+    public        boolean            m_bSuccessInit;
     public static OwnKeyboardHandler inst;
-    public OwnKeyboardHandler(Handler exist,JbKbdView kv)
+
+
+    public OwnKeyboardHandler(
+            Handler exist,
+            JbKbdView kv)
     {
         super();
         inst = this;
@@ -42,21 +48,26 @@ public class OwnKeyboardHandler extends Handler
         m_bSuccessInit = init();
         loadFromSettings();
     }
+
+
     void loadFromSettings()
     {
         SharedPreferences p = st.pref(m_kv.getContext());
         longPressInterval = p.getInt(st.PREF_KEY_LONG_PRESS_INTERVAL, 500);
-        deltaLongPress = longPressInterval>=500?longPressInterval-500:0;
+        deltaLongPress = longPressInterval >= 500 ? longPressInterval - 500 : 0;
         firstRepeatInterval = p.getInt(st.PREF_KEY_REPEAT_FIRST_INTERVAL, 400);
-        deltaRepeatStart = firstRepeatInterval>=400?firstRepeatInterval-400:0;
-        repeatInterval =  p.getInt(st.PREF_KEY_REPEAT_NEXT_INTERVAL, 50);
+        deltaRepeatStart = firstRepeatInterval >= 400 ? firstRepeatInterval - 400 : 0;
+        repeatInterval = p.getInt(st.PREF_KEY_REPEAT_NEXT_INTERVAL, 50);
     }
+
+
     boolean init()
     {
-        try{
+        try {
             m_showKey = KeyboardView.class.getDeclaredMethod("showKey", int.class);
             m_repeatKey = KeyboardView.class.getDeclaredMethod("repeatKey");
-            m_openPopupIfRequired = KeyboardView.class.getDeclaredMethod("openPopupIfRequired",MotionEvent.class);
+            m_openPopupIfRequired =
+                    KeyboardView.class.getDeclaredMethod("openPopupIfRequired", MotionEvent.class);
             m_openPopupIfRequired.setAccessible(true);
             m_repeatKey.setAccessible(true);
             m_showKey.setAccessible(true);
@@ -64,30 +75,29 @@ public class OwnKeyboardHandler extends Handler
             f.setAccessible(true);
             m_PreviewText = (TextView) f.get(m_kv);
             return true;
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
         }
         return false;
     }
+
+
     void invokeShowKey(int key)
     {
-        try{
-            if(m_showKey!=null)
-            {
+        try {
+            if (m_showKey != null) {
                 m_showKey.invoke(m_kv, key);
             }
-        }
-        catch(Throwable e)
-        {
+        } catch (Throwable e) {
             st.logEx(e);
         }
     }
+
+
     @Override
     public void handleMessage(Message msg)
     {
-        try{
-            switch (msg.what) 
-            {
+        try {
+            switch (msg.what) {
                 case MSG_INVALIDATE:
                     m_kv.trueInvalidateKey(msg.arg1);
                     break;
@@ -100,16 +110,16 @@ public class OwnKeyboardHandler extends Handler
 //                    break;
                 case MSG_REPEAT:
                     break;
-                case MSG_MY_REPEAT:
-                    {
-                        LatinKey lk = (LatinKey)msg.obj;
-                        if(lk==null||!lk.pressed||!m_kv.getCurKeyboard().hasKey(lk))
-                            return;
-                        lk.processed = true;
-                        m_kv.onKeyRepeat(lk);
-                        sendRepeat(lk, false);
+                case MSG_MY_REPEAT: {
+                    LatinKey lk = (LatinKey) msg.obj;
+                    if (lk == null || !lk.pressed || !m_kv.getCurKeyboard().hasKey(lk)) {
+                        return;
                     }
-                    break;
+                    lk.processed = true;
+                    m_kv.onKeyRepeat(lk);
+                    sendRepeat(lk, false);
+                }
+                break;
                 case MSG_LONGPRESS:
 //                    if(deltaLongPress>0&&msg.arg1==0)
 //                    {
@@ -121,28 +131,32 @@ public class OwnKeyboardHandler extends Handler
 //                        m_openPopupIfRequired.invoke(m_kv, (MotionEvent) msg.obj);
 //                    }
                     break;
-                case MSG_MY_LONG_PRESS:
-                    {
-                        LatinKey lk = (LatinKey)msg.obj;
-                        if(lk!=null&&lk.pressed)
-                        {
-                            lk.processed = true;
-                            m_kv.onLongPress(lk);
-                        }
+                case MSG_MY_LONG_PRESS: {
+                    LatinKey lk = (LatinKey) msg.obj;
+                    if (lk != null && lk.pressed) {
+                        lk.processed = true;
+                        m_kv.onLongPress(lk);
                     }
-                    break;
+                }
+                break;
             }
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             st.logEx(e);
         }
     }
-    public final void sendRepeat(LatinKey k,boolean bFirst)
+
+
+    public final void sendRepeat(
+            LatinKey k,
+            boolean bFirst)
     {
-        sendMessageDelayed(obtainMessage(MSG_MY_REPEAT, k), bFirst?firstRepeatInterval:repeatInterval);
+        sendMessageDelayed(
+                obtainMessage(MSG_MY_REPEAT, k), bFirst ? firstRepeatInterval : repeatInterval);
     }
+
+
     public final void sendLongPress(LatinKey k)
     {
-        sendMessageDelayed(obtainMessage(MSG_MY_LONG_PRESS, k),longPressInterval);
+        sendMessageDelayed(obtainMessage(MSG_MY_LONG_PRESS, k), longPressInterval);
     }
 }

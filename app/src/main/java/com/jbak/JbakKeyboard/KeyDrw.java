@@ -11,59 +11,88 @@ import android.graphics.drawable.shapes.RectShape;
 import android.inputmethodservice.Keyboard.Key;
 import com.jbak.JbakKeyboard.JbKbd.LatinKey;
 
-/** Собственная картинка для клавиш. Генерируется на основе {@link Key#label}*/    
-class KeyDrw extends RectShape
+
+/**
+ * Собственная картинка для клавиш. Генерируется на основе {@link Key#label}
+ */
+class KeyDrw
+        extends RectShape
 {
-    public static final String DRW_PREFIX = "d_"; 
+    public static final String DRW_PREFIX = "d_";
     Bitmap bmp;
     Bitmap bmpSmall;
     String txtMain;
     String txtSmall;
-    boolean m_bPreview = false;
+    boolean m_bPreview     = false;
     boolean m_bLongPreview = false;
-    boolean m_bSmallLabel = false;
-    boolean m_bPressed = false;
-/** true, если на клавише несколько кодов, которые перебираются последовательно (codes.length>1)*/    
-    boolean m_bMultiCode = false;
+    boolean m_bSmallLabel  = false;
+    boolean m_bPressed     = false;
+    /**
+     * true, если на клавише несколько кодов, которые перебираются последовательно (codes.length>1)
+     */
+    boolean m_bMultiCode   = false;
     Rect rb;
-    boolean m_bFunc = false;
+    boolean m_bFunc        = false;
     boolean m_bNoColorIcon = false;
-    public static int GAP = 5;
-    public static final int DELIM = 2;
+    public static       int GAP         = 5;
+    public static final int DELIM       = 2;
     public static final int DEFAULT_GAP = 5;
-    public static final int BIG_GAP = 8;
+    public static final int BIG_GAP     = 8;
     DrwCache m_c;
-/** Конструктор
-* @param key Клавиша из которой создаётся рисовалка */
+
+
+    /**
+     * Конструктор
+     *
+     * @param key
+     *         Клавиша из которой создаётся рисовалка
+     */
     public KeyDrw(LatinKey key)
     {
         set(key, false);
     }
-/** Пустой конструктор */    
+
+
+    /**
+     * Пустой конструктор
+     */
     public KeyDrw()
     {
     }
+
+
     public Drawable getDrawable()
     {
         ShapeDrawable drw = new ShapeDrawable(this);
         drw.setBounds(rb);
         return drw;
     }
+
+
     public final void setSmallLabel(boolean small)
     {
         m_bSmallLabel = small;
     }
+
+
     public final void setFuncKey(boolean func)
     {
         m_bFunc = func;
     }
-    final void useTextColor(Paint pt,boolean second)
+
+
+    final void useTextColor(
+            Paint pt,
+            boolean second)
     {
         int c = st.paint().getColor(this, second);
-        if(c!=st.DEF_COLOR)
+        if (c != st.DEF_COLOR) {
             pt.setColor(c);
+        }
     }
-//    @Override
+
+
+    //    @Override
 //    protected void onResize(float width, float height) 
 //    {
 //        super.onResize(width, height);
@@ -72,306 +101,303 @@ class KeyDrw extends RectShape
 //            st.paint().previewBack.setBounds(new Rect(0,0,(int)width,(int)height));
 //        }
 //    };
-    final void set(LatinKey key, boolean bPreview)
+    final void set(
+            LatinKey key,
+            boolean bPreview)
     {
-        set(key,bPreview,0);
+        set(key, bPreview, 0);
     }
-    void set(LatinKey key, boolean bPreview,int primaryCode)
+
+
+    void set(
+            LatinKey key,
+            boolean bPreview,
+            int primaryCode)
     {
         m_c = null;
         m_bPreview = bPreview;
         m_bPressed = key.pressed;
         m_bNoColorIcon = key.noColorIcon;
-        m_bMultiCode = (key.codes!=null&&key.codes.length>1);
-        if(key.icon!=null)
-        {
-            if(key.icon instanceof BitmapDrawable)
-            {
-                this.bmp = ((BitmapDrawable)key.icon).getBitmap();
-            }
-            else if(key.icon instanceof ShapeDrawable)
-            {
-                KeyDrw kd = ((LatinKey)key).m_kd;
-                txtMain = primaryCode==0?kd.txtMain:st.NULL_STRING+(char)primaryCode;
+        m_bMultiCode = (key.codes != null && key.codes.length > 1);
+        if (key.icon != null) {
+            if (key.icon instanceof BitmapDrawable) {
+                this.bmp = ((BitmapDrawable) key.icon).getBitmap();
+            } else if (key.icon instanceof ShapeDrawable) {
+                KeyDrw kd = ((LatinKey) key).m_kd;
+                txtMain = primaryCode == 0 ? kd.txtMain : st.NULL_STRING + (char) primaryCode;
                 txtSmall = kd.txtSmall;
                 bmp = kd.bmp;
             }
-        }
-        else
-        {
+        } else {
             bmp = null;
         }
-        if(key.label!=null)
-        {
+        if (key.label != null) {
             CharSequence lab = key.label;
             int f = lab.toString().indexOf('\n');
-            if(f>-1)
-            {
+            if (f > -1) {
                 txtSmall = lab.subSequence(0, f).toString();
                 bmpSmall = st.getBitmapByCmd(st.getCmdByLabel(txtSmall));
-                txtMain = lab.subSequence(f+1, lab.length()).toString();
-            }
-            else
-            {
+                txtMain = lab.subSequence(f + 1, lab.length()).toString();
+            } else {
                 txtMain = lab.toString();
                 txtSmall = null;
             }
-            if(primaryCode!=0)
-                txtMain = st.NULL_STRING+(char)primaryCode;
+            if (primaryCode != 0) {
+                txtMain = st.NULL_STRING + (char) primaryCode;
+            }
         }
-        if(m_bPreview)
-            rb = new Rect(0, 0, /*st.kv().m_PreviewHeight*/KeyboardPopup.m_w, /*st.kv().m_PreviewHeight*/KeyboardPopup.m_h);
-        else    
-            rb = new Rect(0,0,key.width,key.height);
+        if (m_bPreview) {
+            rb = new Rect(
+                    0, 0, /*st.kv().m_PreviewHeight*/KeyboardPopup.m_w, /*st.kv().m_PreviewHeight*/
+                    KeyboardPopup.m_h);
+        } else {
+            rb = new Rect(0, 0, key.width, key.height);
+        }
 
     }
+
+
     final void drawFuncBackground(Canvas canvas)
     {
-        if(m_bFunc&&st.paint().funcBackDrawable!=null)
+        if (m_bFunc && st.paint().funcBackDrawable != null) {
             st.paint().funcBackDrawable.draw(canvas);
+        }
     }
+
+
     static class DrwCache
     {
         String mainLower;
         String mainUpper;
-        float m_xMainLower;
-        float m_yMainLower;
-        float m_xMainUpper;
-        float m_yMainUpper;
-        float m_xSmall;
-        float m_ySmall;
-        boolean isHalfSmallLabel=false;
-    };
-    final int horzX(int minX,int preferX,int mainTextWidth,int secondTextPos)
-    {
-        if(preferX+mainTextWidth+DELIM<=secondTextPos)
-            return preferX;
-        return st.max(minX, secondTextPos-mainTextWidth-DELIM);
+        float  m_xMainLower;
+        float  m_yMainLower;
+        float  m_xMainUpper;
+        float  m_yMainUpper;
+        float  m_xSmall;
+        float  m_ySmall;
+        boolean isHalfSmallLabel = false;
     }
+
+
+    ;
+
+
+    final int horzX(
+            int minX,
+            int preferX,
+            int mainTextWidth,
+            int secondTextPos)
+    {
+        if (preferX + mainTextWidth + DELIM <= secondTextPos) {
+            return preferX;
+        }
+        return st.max(minX, secondTextPos - mainTextWidth - DELIM);
+    }
+
+
     final void buildCache()
     {
-        if(txtMain==null&&bmp==null||JbKbdView.inst==null)
+        if (txtMain == null && bmp == null || JbKbdView.inst == null) {
             return;
+        }
         m_c = new DrwCache();
 //      Rect rb = canvas.getClipBounds();
         Paint p1 = st.paint().main;
-        if(bmp!=null)
-        {
+        if (bmp != null) {
 // Рисуем просто картинку, без текста (по центру)
-            if(m_bPreview)
-            {
-                m_c.m_xMainLower = getWidth()/2-bmp.getWidth()/2;
-                m_c.m_yMainLower = getHeight()/2-bmp.getHeight()/2;
-            }
-            else
-            {
-                m_c.m_xMainLower = rb.width()/2-bmp.getWidth()/2;
-                m_c.m_yMainLower = rb.height()/2-bmp.getHeight()/2;
+            if (m_bPreview) {
+                m_c.m_xMainLower = getWidth() / 2 - bmp.getWidth() / 2;
+                m_c.m_yMainLower = getHeight() / 2 - bmp.getHeight() / 2;
+            } else {
+                m_c.m_xMainLower = rb.width() / 2 - bmp.getWidth() / 2;
+                m_c.m_yMainLower = rb.height() / 2 - bmp.getHeight() / 2;
             }
             return;
         }
-        if(m_bPreview)
-        {
+        if (m_bPreview) {
 //Рисуем просмотр     
-            if(txtMain!=null)
-            {
+            if (txtMain != null) {
                 p1 = JbKbdView.inst.m_tpPreview;
                 float mw = p1.measureText(txtMain);
-                m_c.m_yMainLower = getHeight()/2+(0-p1.ascent())/2;
-                m_c.m_xMainLower = getWidth()/2-mw/2;
+                m_c.m_yMainLower = getHeight() / 2 + (0 - p1.ascent()) / 2;
+                m_c.m_xMainLower = getWidth() / 2 - mw / 2;
             }
             return;
         }
-        if(m_bSmallLabel)
-        {
+        if (m_bSmallLabel) {
             p1 = st.paint().second;
         }
 //Если текст длинее 1 символа - считаем меткой и рисуем с помощью JbKbdView.m_tpLabel 
-        else if(txtMain.length()>1)
-        {
+        else if (txtMain.length() > 1) {
             p1 = st.paint().label;
         }
 //canvas сдвинут к середине, вернём его в позицию 0,0           
         Paint p2 = st.paint().second;
-        if(txtMain.length()==1||m_bMultiCode)
-        {
+        if (txtMain.length() == 1 || m_bMultiCode) {
             m_c.mainLower = txtMain.toLowerCase();
             m_c.mainUpper = txtMain.toUpperCase();
-        }
-        else
-        {
+        } else {
             m_c.mainLower = txtMain;
             m_c.mainUpper = txtMain;
         }
-        int a1 = (int) (0-p1.ascent());
-        int a2 = (int) (0-p2.ascent());
+        int a1 = (int) (0 - p1.ascent());
+        int a2 = (int) (0 - p2.ascent());
         int d1 = (int) p1.descent();
         int d2 = (int) p2.descent();
-        int w1,h1=d1+a1,w2,h2;
-        if(bmpSmall!=null)
-        {
+        int w1, h1 = d1 + a1, w2, h2;
+        if (bmpSmall != null) {
             h2 = bmpSmall.getHeight();
             w2 = bmpSmall.getWidth();
-        }
-        else if(txtSmall!=null)
-        {
-            h2 = a2+d2;
+        } else if (txtSmall != null) {
+            h2 = a2 + d2;
             w2 = (int) p2.measureText(txtSmall);
-        }
-        else
-        {
+        } else {
             h2 = w2 = 0;
         }
         w1 = (int) p1.measureText(m_c.mainLower);
-        if(w1>rb.width()-4&&m_c.mainLower.length()>1)
-        {
+        if (w1 > rb.width() - 4 && m_c.mainLower.length() > 1) {
             m_c.isHalfSmallLabel = true;
             p1 = st.paint().halfLabel;
             w1 = (int) p1.measureText(m_c.mainLower);
         }
-        int fh = st.paint().padding.top+st.paint().padding.left+h1+h2+DELIM; // Полная высота
-        if(fh>rb.height())
-        {
+        int fh =
+                st.paint().padding.top + st.paint().padding.left + h1 + h2 + DELIM; // Полная высота
+        if (fh > rb.height()) {
             // Изображение основного текста и доп. символов не умещается в высоту
-            int x2 = rb.width()-st.paint().padding.right-w2;
-            if(bmpSmall!=null)
-            {
+            int x2 = rb.width() - st.paint().padding.right - w2;
+            if (bmpSmall != null) {
                 m_c.m_xSmall = x2;
-                m_c.m_ySmall = GAP+3;
-            }
-            else if(txtSmall!=null)
-            {
+                m_c.m_ySmall = GAP + 3;
+            } else if (txtSmall != null) {
                 m_c.m_xSmall = x2;
-                m_c.m_ySmall = GAP+a2;
+                m_c.m_ySmall = GAP + a2;
             }
-            if(txtMain!=null)
-            {
-                m_c.m_xMainLower = horzX(st.paint().padding.left,rb.width()/2-w1/2,w1,rb.width()-st.paint().padding.right-w2);
-                m_c.m_yMainLower = rb.height()-st.paint().padding.bottom-d1;
-                if(m_c.mainUpper==m_c.mainLower)
-                {
+            if (txtMain != null) {
+                m_c.m_xMainLower = horzX(
+                        st.paint().padding.left, rb.width() / 2 - w1 / 2, w1,
+                        rb.width() - st.paint().padding.right - w2);
+                m_c.m_yMainLower = rb.height() - st.paint().padding.bottom - d1;
+                if (m_c.mainUpper == m_c.mainLower) {
                     m_c.m_xMainUpper = m_c.m_xMainLower;
-                }
-                else
-                {
+                } else {
                     w1 = (int) p1.measureText(m_c.mainUpper);
-                    m_c.m_xMainUpper = horzX(st.paint().padding.left,rb.width()/2-w1/2,w1,rb.width()-st.paint().padding.right-w2);
+                    m_c.m_xMainUpper = horzX(
+                            st.paint().padding.left, rb.width() / 2 - w1 / 2, w1,
+                            rb.width() - st.paint().padding.right - w2);
                 }
                 m_c.m_yMainUpper = m_c.m_yMainLower;
             }
-        }
-        else
-        {
+        } else {
             // Всё изображение умещается
-            if(bmpSmall!=null)
-            {
-                m_c.m_xSmall = rb.width()/2-w2/2;
+            if (bmpSmall != null) {
+                m_c.m_xSmall = rb.width() / 2 - w2 / 2;
                 m_c.m_ySmall = st.paint().padding.top;
+            } else if (txtSmall != null) {
+                m_c.m_xSmall = rb.width() / 2 - w2 / 2;
+                m_c.m_ySmall = st.paint().padding.top + a2;
             }
-            else if(txtSmall!=null)
-            {
-                m_c.m_xSmall = rb.width()/2-w2/2;
-                m_c.m_ySmall = st.paint().padding.top+a2;
-            }
-            int y = h2+DELIM+a1;
-            int dy = (rb.height()-st.paint().padding.bottom-y)/2;
-            if(dy<4)
+            int y = h2 + DELIM + a1;
+            int dy = (rb.height() - st.paint().padding.bottom - y) / 2;
+            if (dy < 4) {
                 dy = 0;
-            m_c.m_xMainLower = rb.width()/2-w1/2;
-            m_c.m_yMainLower = y+dy;
-            m_c.m_yMainUpper = m_c.m_yMainLower;
-            if(m_c.mainUpper!=m_c.mainLower)
-            {
-                m_c.m_xMainUpper = rb.width()/2-p1.measureText(m_c.mainUpper)/2;
             }
-            else
-            {
+            m_c.m_xMainLower = rb.width() / 2 - w1 / 2;
+            m_c.m_yMainLower = y + dy;
+            m_c.m_yMainUpper = m_c.m_yMainLower;
+            if (m_c.mainUpper != m_c.mainLower) {
+                m_c.m_xMainUpper = rb.width() / 2 - p1.measureText(m_c.mainUpper) / 2;
+            } else {
                 m_c.m_xMainUpper = m_c.m_xMainLower;
             }
         }
     }
+
+
     @Override
-    public void draw(Canvas canvas, Paint paint)
+    public void draw(
+            Canvas canvas,
+            Paint paint)
     {
-        if(m_c==null&&!m_bPreview)
+        if (m_c == null && !m_bPreview) {
             buildCache();
-        if(m_c==null&&!m_bPreview||txtMain==null&&bmp==null||JbKbdView.inst==null)
+        }
+        if (m_c == null && !m_bPreview || txtMain == null && bmp == null ||
+            JbKbdView.inst == null) {
             return;
+        }
         Paint p1 = st.paint().main;
-        if(bmp!=null)
-        {
+        if (bmp != null) {
 // Рисуем просто картинку, без текста (по центру)
-            if(m_bPreview)
-                canvas.drawBitmap(bmp, getWidth()/2-bmp.getWidth()/2,getHeight()/2-bmp.getHeight()/2, st.paint().getBitmapPaint(this));
-            else
-            {
-                canvas.translate(0-rb.width()/2, 0-rb.height()/2);
+            if (m_bPreview) {
+                canvas.drawBitmap(
+                        bmp, getWidth() / 2 - bmp.getWidth() / 2,
+                        getHeight() / 2 - bmp.getHeight() / 2, st.paint().getBitmapPaint(this));
+            } else {
+                canvas.translate(0 - rb.width() / 2, 0 - rb.height() / 2);
                 drawFuncBackground(canvas);
-                canvas.drawBitmap(bmp, m_c.m_xMainLower,m_c.m_yMainLower, st.paint().getBitmapPaint(this));
+                canvas.drawBitmap(
+                        bmp, m_c.m_xMainLower, m_c.m_yMainLower, st.paint().getBitmapPaint(this));
             }
             return;
         }
-        if(m_bPreview)
-        {
+        if (m_bPreview) {
 //Рисуем просмотр     
-            String text = m_bLongPreview?txtSmall:txtMain;
+            String text = m_bLongPreview ? txtSmall : txtMain;
 //            st.paint().previewBack.draw(canvas);
-            if(text!=null)
-            {
+            if (text != null) {
                 p1 = JbKbdView.inst.m_tpPreview;
-                if(text.length()>1)
-                {
-                    p1.setTextSize(st.kv().m_PreviewTextSize/2);
-                }
-                else
-                {
+                if (text.length() > 1) {
+                    p1.setTextSize(st.kv().m_PreviewTextSize / 2);
+                } else {
                     p1.setTextSize(st.kv().m_PreviewTextSize);
                 }
                 Rect bb = new Rect();
                 p1.getTextBounds(text, 0, text.length(), bb);
-                float x = getWidth()/2-bb.width()/2;
-                float y = getHeight()/2-bb.height()/2;
-                canvas.drawText(text, x, y+bb.height(), p1);
+                float x = getWidth() / 2 - bb.width() / 2;
+                float y = getHeight() / 2 - bb.height() / 2;
+                canvas.drawText(text, x, y + bb.height(), p1);
             }
             return;
         }
 //Если текст длинее 1 символа - считаем меткой и рисуем с помощью JbKbdView.m_tpLabel 
-        boolean bUp = JbKbdView.inst.isUpperCase(); 
-        if(m_c.isHalfSmallLabel)
+        boolean bUp = JbKbdView.inst.isUpperCase();
+        if (m_c.isHalfSmallLabel) {
             p1 = st.paint().halfLabel;
-        if(m_bSmallLabel)
-        {
+        }
+        if (m_bSmallLabel) {
             bUp = false;
-            if(!m_c.isHalfSmallLabel)
+            if (!m_c.isHalfSmallLabel) {
                 p1 = st.paint().second;
-        }
-        else if(txtMain.length()>1)
-        {
-            if(!m_bMultiCode)
+            }
+        } else if (txtMain.length() > 1) {
+            if (!m_bMultiCode) {
                 bUp = false;
-            if(!m_c.isHalfSmallLabel)
+            }
+            if (!m_c.isHalfSmallLabel) {
                 p1 = st.paint().label;
+            }
         }
-        useTextColor(p1,false);
+        useTextColor(p1, false);
 //canvas сдвинут к середине, вернём его в позицию 0,0           
-        canvas.translate(0-rb.width()/2, 0-rb.height()/2);
+        canvas.translate(0 - rb.width() / 2, 0 - rb.height() / 2);
         drawFuncBackground(canvas);
         Paint p2 = st.paint().second;
-        useTextColor(p2,true);
-        if(bmp!=null)
-        {
-            canvas.drawBitmap(bmp, m_c.m_xMainLower, m_c.m_yMainLower, st.paint().getBitmapPaint(this));
+        useTextColor(p2, true);
+        if (bmp != null) {
+            canvas.drawBitmap(
+                    bmp, m_c.m_xMainLower, m_c.m_yMainLower, st.paint().getBitmapPaint(this));
         }
-        if(bmpSmall!=null)
-            canvas.drawBitmap(bmpSmall, m_c.m_xSmall, m_c.m_ySmall, st.paint().getBitmapPaint(this,true));
-        else if(txtSmall!=null)
-        {
-            canvas.drawText(txtSmall,m_c.m_xSmall, m_c.m_ySmall, p2);
+        if (bmpSmall != null) {
+            canvas.drawBitmap(
+                    bmpSmall, m_c.m_xSmall, m_c.m_ySmall, st.paint().getBitmapPaint(this, true));
+        } else if (txtSmall != null) {
+            canvas.drawText(txtSmall, m_c.m_xSmall, m_c.m_ySmall, p2);
         }
-        if(bUp)
+        if (bUp) {
             canvas.drawText(m_c.mainUpper, m_c.m_xMainUpper, m_c.m_yMainUpper, p1);
-        else
+        } else {
             canvas.drawText(m_c.mainLower, m_c.m_xMainLower, m_c.m_yMainLower, p1);
+        }
     }
 }
 
