@@ -14,7 +14,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
-import android.widget.TextView;
 import com.jbak.JbakKeyboard.IKeyboard.Lang;
 
 import java.util.Vector;
@@ -38,16 +37,17 @@ public class LangSetActivity
         for (Lang l : st.arLangs) {
             m_adapt.add(l);
         }
-        View v = getLayoutInflater().inflate(R.layout.pref_view, null);
+        View v = getLayoutInflater().inflate(R.layout.pref_view_2, null);
         m_list = (ListView) v.findViewById(android.R.id.list);
         m_list.setAdapter(m_adapt);
-        View topView = v.findViewById(R.id.top_item);
+        Button topView = (Button) v.findViewById(R.id.top_item);
         topView.setVisibility(View.VISIBLE);
-        TextView tw = (TextView) topView.findViewById(R.id.text);
-        tw.setText(R.string.set_key_ac_load_vocab);
+        topView.setText(R.string.set_key_ac_load_vocab);
+//        TextView tw = (TextView) topView.findViewById(R.id.text);
+//        tw.setText(R.string.set_key_ac_load_vocab);
 //        tw.setTextColor(0xff0000ff);
-        tw.setBackgroundResource(android.R.drawable.btn_default);
-        ((TextView) topView.findViewById(R.id.desc)).setText(" ");
+//        tw.setBackgroundResource(android.R.drawable.btn_default);
+//        ((TextView) topView.findViewById(R.id.desc)).setText(" ");
         topView.setOnClickListener(
                 new OnClickListener()
                 {
