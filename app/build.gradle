@@ -28,7 +28,7 @@ android {
 
     defaultConfig {
         applicationId "com.jbak.JbakKeyboard"
-        minSdkVersion 8
+        minSdkVersion 5
         targetSdkVersion 22
         versionCode 36
         versionName "0.97.8"
