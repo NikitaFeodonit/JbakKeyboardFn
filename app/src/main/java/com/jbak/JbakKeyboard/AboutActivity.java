@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-import com.jbak.CustomGraphics.ColorsGradientBack;
 
 
 public class AboutActivity
@@ -15,8 +14,8 @@ public class AboutActivity
     {
         super.onCreate(savedInstanceState);
         View v = getLayoutInflater().inflate(R.layout.about, null);
-        v.setBackgroundDrawable(
-                new ColorsGradientBack().setCorners(0, 0).setGap(0).getStateDrawable());
+//        v.setBackgroundDrawable(
+//                new ColorsGradientBack().setCorners(0, 0).setGap(0).getStateDrawable());
         try {
             String vers = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             String app = getString(R.string.about_version) + " " + vers + "\n\n" +

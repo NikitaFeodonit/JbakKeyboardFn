@@ -67,7 +67,7 @@ public class SetKbdActivity
             return;
         }
         m_MainView = getLayoutInflater().inflate(R.layout.kbd_set, null);
-        m_MainView.setBackgroundDrawable(st.getBack());
+//        m_MainView.setBackgroundDrawable(st.getBack());
         SharedPreferences pref = st.pref();
         m_kbd = (JbKbdView) m_MainView.findViewById(R.id.keyboard);
         m_MainView.findViewById(R.id.next).setOnClickListener(m_NextPrevListener);
@@ -635,7 +635,7 @@ public class SetKbdActivity
         m_calibrTest = new SpannableString(m_calibrateTest.getText().toString());
         m_calibrToggle = (Button) m_MainView.findViewById(R.id.toggle_calibr);
         m_calibrManual = (IntEditor) m_MainView.findViewById(R.id.calibr_size);
-        m_MainView.setBackgroundDrawable(st.getBack());
+//        m_MainView.setBackgroundDrawable(st.getBack());
         m_kbd = (JbKbdView) m_MainView.findViewById(R.id.keyboard);
 
         setCalibrateListeners();

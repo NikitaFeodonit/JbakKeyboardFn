@@ -45,7 +45,7 @@ public class LangSetActivity
         topView.setVisibility(View.VISIBLE);
         TextView tw = (TextView) topView.findViewById(R.id.text);
         tw.setText(R.string.set_key_ac_load_vocab);
-        tw.setTextColor(0xff0000ff);
+//        tw.setTextColor(0xff0000ff);
         tw.setBackgroundResource(android.R.drawable.btn_default);
         ((TextView) topView.findViewById(R.id.desc)).setText(" ");
         topView.setOnClickListener(
