@@ -30,7 +30,7 @@ android {
         applicationId "com.jbak.JbakKeyboard"
         minSdkVersion 5
         targetSdkVersion 22
-        versionCode 36
+        versionCode 37
         versionName "0.97.8"
     }
 
