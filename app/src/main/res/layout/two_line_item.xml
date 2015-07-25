@@ -32,7 +32,7 @@
         android:id="@+id/size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14dp"
+        android:textSize="14sp"
         android:layout_alignParentRight="true"
         />
     <!--android:textColor="#ffffff"-->
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:paddingLeft="10dp"
         />
     <!--android:textColor="#ffffff"-->
@@ -53,7 +53,7 @@
         android:id="@+id/desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:layout_below="@id/text"
         />
     <!--android:textColor="#ffffff"-->
