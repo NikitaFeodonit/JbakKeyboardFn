@@ -17,10 +17,10 @@
 ** limitations under the License.
 */
 -->
-<com.jbak.JbakKeyboard.JbKbdView 
-		xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/keyboard"
-        android:layout_alignParentBottom="true"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        />
+<com.jbak.JbakKeyboard.JbKbdView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyboard"
+    android:layout_alignParentBottom="true"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    />

@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="horizontal"
-  android:layout_width="fill_parent"
-  android:layout_height="wrap_content">
-<Button
-      android:id="@+id/button"
-      android:drawableTop="@drawable/keyboard"
-      style="@style/img_button"	
-	  android:text="@string/set_select_keyboard"
-	  android:layout_alignParentRight="true"
-/>
-  <CheckBox 
-  android:id="@+id/checkbox"
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:layout_alignParentTop="true"
-  android:layout_alignParentLeft="true"
-  android:layout_toLeftOf="@id/button"
-  />  
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <Button
+        android:id="@+id/button"
+        android:drawableTop="@drawable/keyboard"
+        style="@style/img_button"
+        android:text="@string/set_select_keyboard"
+        android:layout_alignParentRight="true"
+        />
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/button"
+        />
 </RelativeLayout>

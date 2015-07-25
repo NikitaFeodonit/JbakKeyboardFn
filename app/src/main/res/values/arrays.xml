@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string-array name="integer_vals" tools:ignore="MissingTranslation">
+    <string-array name="integer_vals"
+                  tools:ignore="MissingTranslation">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -13,13 +14,13 @@
         <item>8</item>
         <item>9</item>
         <item>10</item>
-     </string-array>
+    </string-array>
     <string-array name="ac_place">
         <item>@string/set_key_ac_place_0</item>
         <item>@string/set_key_ac_place_1</item>
         <item>@string/set_key_ac_place_2</item>
         <!-- >item>@string/set_key_ac_place_3</item -->
-        </string-array>
+    </string-array>
     <string-array name="pv_place">
         <item>@string/preview_show_0</item>
         <item>@string/preview_show_1</item>
@@ -30,5 +31,5 @@
         <item>@string/vk_use_1</item>
         <item>@string/vk_use_2</item>
     </string-array>
-    
+
 </resources>
