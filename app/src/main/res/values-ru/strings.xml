@@ -33,8 +33,8 @@
 
     <string name="pref_themes_title">Тема настроек</string>
     <string name="pref_themes_summary">Тема оформления окна настроек</string>
-    <string name="light_theme">Светлая схема</string>
-    <string name="dark_theme">Темная схема</string>
+    <string name="light_theme">Светлая тема</string>
+    <string name="dark_theme">Темная тема</string>
 
     <!-- Labels on soft keys -->
     <string name="label_go_key">Go</string>
