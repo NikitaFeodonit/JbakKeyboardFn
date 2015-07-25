@@ -51,6 +51,7 @@ public class UpdVocabActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        JbKbdPreference.setAppTheme(this);
         super.onCreate(savedInstanceState);
         View v = getLayoutInflater().inflate(R.layout.pref_view, null);
         m_updDownloader = new UpdateDownloader();

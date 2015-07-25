@@ -40,6 +40,10 @@ public interface IKbdSettings
      */
     public static final String PREF_KEY_PREVIEW               = "ch_preview";
     /**
+     * Ключ, String, хранящий тему оформления окна настроек (0-светлая, 1-темная)
+     */
+    public static final String PREF_KEY_THEME                 = "pref_theme";
+    /**
      * Ключ, String, хранящий тип показа предпросмотра клавиши (0-нет, 1- над клавишами, 2 - над
      * клавиатурой)
      */

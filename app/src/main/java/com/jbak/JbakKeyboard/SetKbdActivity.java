@@ -80,6 +80,7 @@ public class SetKbdActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        JbKbdPreference.setAppTheme(this);
         super.onCreate(savedInstanceState);
         inst = this;
         m_curAction = getIntent().getIntExtra(st.SET_INTENT_ACTION, st.SET_KEY_HEIGHT_PORTRAIT);

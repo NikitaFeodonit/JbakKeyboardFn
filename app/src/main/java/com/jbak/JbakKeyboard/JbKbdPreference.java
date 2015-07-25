@@ -23,6 +23,7 @@
 package com.jbak.JbakKeyboard;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.ComponentName;
@@ -36,6 +37,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.view.View;
@@ -65,9 +67,30 @@ public class JbKbdPreference
     IntEntry arIntEntries[];
 
 
+    public static void setAppTheme(Activity activity)
+    {
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(activity);
+        String prefTheme = sharedPreferences.getString(st.PREF_KEY_THEME, st.ZERO_STRING);
+
+        if (prefTheme != null) {
+            switch (prefTheme) {
+                case st.ZERO_STRING:
+                default:
+                    activity.setTheme(R.style.JbakAppLightTheme);
+                    break;
+                case st.ONE_STRING:
+                    activity.setTheme(R.style.JbakAppDarkTheme);
+                    break;
+            }
+        }
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        JbKbdPreference.setAppTheme(this);
         super.onCreate(savedInstanceState);
         inst = this;
         arIntEntries = new IntEntry[] {
@@ -372,6 +395,12 @@ public class JbKbdPreference
             SharedPreferences sharedPreferences,
             String key)
     {
+        if (st.PREF_KEY_THEME.equals(key)) {
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
+
         if (st.PREF_KEY_GESTURE_LEFT.equals(key) || st.PREF_KEY_GESTURE_RIGHT.equals(key) ||
             st.PREF_KEY_GESTURE_UP.equals(key) || st.PREF_KEY_GESTURE_DOWN.equals(key) ||
             st.PREF_KEY_GESTURE_SPACE_LEFT.equals(key) ||

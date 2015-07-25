@@ -34,6 +34,7 @@ public class AboutActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        JbKbdPreference.setAppTheme(this);
         super.onCreate(savedInstanceState);
         View v = getLayoutInflater().inflate(R.layout.about, null);
 //        v.setBackgroundDrawable(

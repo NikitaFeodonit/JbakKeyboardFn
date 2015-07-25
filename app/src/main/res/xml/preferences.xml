@@ -28,6 +28,14 @@
     <!-- 0 - предпросмотр -->
 
     <ListPreference
+        android:defaultValue="0"
+        android:key="pref_theme"
+        android:entries="@array/pref_themes"
+        android:entryValues="@array/integer_vals"
+        android:summary="@string/pref_themes_summary"
+        android:title="@string/pref_themes_title"
+        />
+    <ListPreference
         android:defaultValue="1"
         android:key="key_preview"
         android:entries="@array/pv_place"

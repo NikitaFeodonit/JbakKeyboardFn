@@ -52,6 +52,7 @@ public class LangSetActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        JbKbdPreference.setAppTheme(this);
         super.onCreate(savedInstanceState);
         inst = this;
         CustomKeyboard.loadCustomKeyboards(false);

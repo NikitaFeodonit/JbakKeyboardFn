@@ -89,6 +89,7 @@ public class TplEditorActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        JbKbdPreference.setAppTheme(this);
         super.onCreate(savedInstanceState);
         if (Templates.inst == null && !getIntent().hasExtra(EXTRA_CLIPBOARD_ENTRY)) {
             finish();

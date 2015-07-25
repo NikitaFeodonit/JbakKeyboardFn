@@ -27,6 +27,11 @@
     <string name="ime_name">Jbak Keyboard</string>
     <string name="ime_settings">Jbak Keyboard settings</string>
 
+    <string name="pref_themes_title">Preferences theme</string>
+    <string name="pref_themes_summary">Preferences window theme</string>
+    <string name="light_theme">Light theme</string>
+    <string name="dark_theme">Dark theme</string>
+
     <string name="pref_keys">Key settings</string>
     <string name="pref_keys_desc">Key heights and vertical corrections</string>
     <!-- Labels on soft keys -->

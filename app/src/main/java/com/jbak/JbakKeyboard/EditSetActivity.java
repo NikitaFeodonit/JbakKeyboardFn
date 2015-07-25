@@ -109,6 +109,7 @@ public class EditSetActivity
     @Override
     public void onCreate(android.os.Bundle savedInstanceState)
     {
+        JbKbdPreference.setAppTheme(this);
         super.onCreate(savedInstanceState);
         inst = this;
         m_prefKey = getIntent().getStringExtra(EXTRA_PREF_KEY);
