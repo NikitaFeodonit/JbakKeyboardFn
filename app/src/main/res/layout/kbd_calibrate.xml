@@ -36,7 +36,7 @@
 
         <Button
             android:id="@+id/toggle_calibr"
-            android:textSize="16px"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:maxLines="2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

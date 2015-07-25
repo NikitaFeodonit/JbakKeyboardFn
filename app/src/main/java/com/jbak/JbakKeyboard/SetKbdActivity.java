@@ -22,6 +22,7 @@
 
 package com.jbak.JbakKeyboard;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -29,7 +30,6 @@ import android.content.res.Configuration;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.BackgroundColorSpan;
@@ -58,7 +58,7 @@ import java.util.Vector;
  * Класс для настроек различных значений клавиатуры, требующих просмотра qwerty-слоя
  */
 public class SetKbdActivity
-        extends AppCompatActivity
+        extends Activity
 {
     /**
      * Текущий экземпляр класса

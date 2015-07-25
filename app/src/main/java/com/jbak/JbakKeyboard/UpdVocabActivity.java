@@ -22,8 +22,8 @@
 
 package com.jbak.JbakKeyboard;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -38,7 +38,7 @@ import java.util.Vector;
 
 
 public class UpdVocabActivity
-        extends AppCompatActivity
+        extends Activity
 {
     ListView            m_list;
     UpdateDownloader    m_updDownloader;

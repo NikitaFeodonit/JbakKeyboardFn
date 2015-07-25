@@ -22,11 +22,11 @@
 
 package com.jbak.JbakKeyboard;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -42,7 +42,7 @@ import java.util.Vector;
 
 
 public class LangSetActivity
-        extends AppCompatActivity
+        extends Activity
 {
     static LangSetActivity inst;
     LangAdapter m_adapt;

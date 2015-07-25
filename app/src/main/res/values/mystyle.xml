@@ -24,9 +24,9 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="JbakAppBaseTheme"
-           parent="Theme.AppCompat.Light.NoActionBar">
+           parent="@android:style/Theme.Light.NoTitleBar">
 
-    <!--for dark theme--> <!--parent="Theme.AppCompat.NoActionBar">-->
+    <!--for dark theme--> <!--parent="@android:style/Theme.NoTitleBar">-->
 
         <!--
             Theme customizations available in newer API levels can go in

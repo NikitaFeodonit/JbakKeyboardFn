@@ -22,9 +22,9 @@
 
 package com.jbak.JbakKeyboard;
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
@@ -39,7 +39,7 @@ import java.io.File;
  * Редактирование шаблонов и просмотр элементов буфера обмена
  */
 public class TplEditorActivity
-        extends AppCompatActivity
+        extends Activity
 {
     /**
      * Если эта EXTRA есть в стартовом Intent'е - значит нужно показать вхождение буфера обмена

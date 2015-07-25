@@ -22,9 +22,9 @@
 
 package com.jbak.JbakKeyboard;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextPaint;
 import android.util.TypedValue;
 import android.view.View;
@@ -41,7 +41,7 @@ import com.jbak.ctrl.IntEditor.OnChangeValue;
 
 
 public class EditSetActivity
-        extends AppCompatActivity
+        extends Activity
 {
     public static EditSetActivity inst;
     public static final String EXTRA_PREF_KEY         = "pref_key";
