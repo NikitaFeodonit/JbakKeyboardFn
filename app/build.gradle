@@ -8,8 +8,8 @@ android {
         applicationId "com.jbak.JbakKeyboard"
         minSdkVersion 8
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 36
+        versionName "0.97.8"
     }
 
     buildTypes {
