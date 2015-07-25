@@ -1,24 +1,33 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 17
+    compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
     defaultConfig {
         applicationId "com.jbak.JbakKeyboard"
-        minSdkVersion 5
-        targetSdkVersion 5
+        minSdkVersion 8
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
     }
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles 'proguard.cfg'
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    output.outputFile = new File(output.outputFile.parent,
+                            "JbakKeyboardFn_" + defaultConfig.versionName +
+                                    "_rev." + defaultConfig.versionCode + ".apk")
+                }
+            }
         }
     }
 }
 
 dependencies {
-    compile files('libs/GoogleAdMobAdsSdk-4.3.1.jar')
+    compile 'com.android.support:appcompat-v7:22.2.1'
     compile files('libs/voiceimeutils.jar')
 }

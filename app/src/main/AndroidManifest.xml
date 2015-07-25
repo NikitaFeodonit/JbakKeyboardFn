@@ -74,9 +74,7 @@
 					/>
 <!-- ============================================================================== -->
 	<!-- admob -->
-				<activity android:name="com.google.ads.AdActivity"
-		              android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
-				
+
     <service android:name="com.google.android.voiceime.ServiceHelper" />
     <activity
         android:name="com.google.android.voiceime.ActivityHelper"
