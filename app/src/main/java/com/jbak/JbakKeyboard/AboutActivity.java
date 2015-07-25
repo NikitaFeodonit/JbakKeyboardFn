@@ -1,12 +1,12 @@
 package com.jbak.JbakKeyboard;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import com.jbak.CustomGraphics.ColorsGradientBack;
 
-public class AboutActivity extends Activity
+public class AboutActivity extends AppCompatActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState)

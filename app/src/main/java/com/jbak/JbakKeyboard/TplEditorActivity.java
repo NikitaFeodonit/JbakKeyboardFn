@@ -1,8 +1,8 @@
 package com.jbak.JbakKeyboard;
 
-import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import java.io.File;
 /** Редактирование шаблонов и просмотр элементов буфера обмена*/
-public class TplEditorActivity extends Activity
+public class TplEditorActivity extends AppCompatActivity
 {
 /** Если эта EXTRA есть в стартовом Intent'е - значит нужно показать вхождение буфера обмена  */    
     public static final String EXTRA_CLIPBOARD_ENTRY = "e_clp";
@@ -44,6 +44,7 @@ public class TplEditorActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        super.onCreate(savedInstanceState);
         if(Templates.inst==null&&!getIntent().hasExtra(EXTRA_CLIPBOARD_ENTRY))
             finish();
         View v = getLayoutInflater().inflate(R.layout.tpl_editor, null);
@@ -107,7 +108,6 @@ public class TplEditorActivity extends Activity
                 }
             });
         }
-        super.onCreate(savedInstanceState);
         setContentView(v);
         m_edName.requestFocusFromTouch();
     }

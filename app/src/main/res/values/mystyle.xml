@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <style name="JbakAppBaseTheme"
+           parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+
+    </style>
+
     <style name="label_set" parent="@android:style/TextAppearance">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>

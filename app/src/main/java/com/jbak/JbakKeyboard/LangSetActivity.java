@@ -1,10 +1,10 @@
 package com.jbak.JbakKeyboard;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -19,7 +19,7 @@ import com.jbak.JbakKeyboard.IKeyboard.Lang;
 
 import java.util.Vector;
 
-public class LangSetActivity extends Activity
+public class LangSetActivity extends AppCompatActivity
 {
     static LangSetActivity inst;
     LangAdapter m_adapt;
@@ -27,6 +27,7 @@ public class LangSetActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        super.onCreate(savedInstanceState);
         inst = this;
         CustomKeyboard.loadCustomKeyboards(false);
         m_adapt = new LangAdapter(this, R.layout.lang_list_item);
@@ -41,17 +42,17 @@ public class LangSetActivity extends Activity
         tw.setText(R.string.set_key_ac_load_vocab);
         tw.setTextColor(0xff0000ff);
         tw.setBackgroundResource(android.R.drawable.btn_default);
-        ((TextView)topView.findViewById(R.id.desc)).setText(" ");
-        topView.setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                st.runAct(UpdVocabActivity.class);
-            }
+        ((TextView) topView.findViewById(R.id.desc)).setText(" ");
+        topView.setOnClickListener(
+                new OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        st.runAct(UpdVocabActivity.class);
+                    }
         });
         setContentView(v);
-        super.onCreate(savedInstanceState);
     }
     @Override
     protected void onDestroy()

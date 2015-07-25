@@ -40,6 +40,7 @@ public class JbKbdPreference extends PreferenceActivity implements OnSharedPrefe
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+        super.onCreate(savedInstanceState);
         inst = this;
         arIntEntries = new IntEntry[]{
                 new IntEntry(st.PREF_KEY_USE_SHORT_VIBRO, R.string.set_key_short_vibro_desc, R.array.vibro_short_type,st.ONE_STRING),
@@ -48,10 +49,8 @@ public class JbKbdPreference extends PreferenceActivity implements OnSharedPrefe
                 new IntEntry(st.PREF_KEY_LANSCAPE_TYPE, R.string.set_key_landscape_input_type_desc, R.array.array_input_type,st.ZERO_STRING),
                 new IntEntry(st.PREF_KEY_PREVIEW_TYPE, R.string.set_ch_keys_preview_desc, R.array.pv_place,st.ONE_STRING),
                 new IntEntry(st.PREF_KEY_USE_VOLUME_KEYS, R.string.set_key_use_volumeKeys_desc, R.array.vk_use,st.ZERO_STRING),
-                new IntEntry(st.PREF_KEY_SOUND_VOLUME, R.string.set_key_sounds_volume_desc, R.array.integer_vals,"5"),
-            };
+                new IntEntry(st.PREF_KEY_SOUND_VOLUME, R.string.set_key_sounds_volume_desc, R.array.integer_vals,"5"),};
         st.upgradeSettings(this);
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.pref_view);
         addPreferencesFromResource(R.xml.preferences);
         setShiftState();

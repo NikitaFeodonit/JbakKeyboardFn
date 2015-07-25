@@ -1,7 +1,7 @@
 package com.jbak.JbakKeyboard;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,7 +14,7 @@ import com.jbak.JbakKeyboard.UpdateDownloader.VersionDiff;
 
 import java.util.Vector;
 
-public class UpdVocabActivity extends Activity
+public class UpdVocabActivity extends AppCompatActivity
 {
     ListView m_list;
     UpdateDownloader m_updDownloader;
@@ -25,6 +25,7 @@ public class UpdVocabActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        super.onCreate(savedInstanceState);
         View v = getLayoutInflater().inflate(R.layout.pref_view, null);
         m_updDownloader = new UpdateDownloader();
         m_list = (ListView)v.findViewById(android.R.id.list);
@@ -34,18 +35,22 @@ public class UpdVocabActivity extends Activity
         m_list.setEmptyView(emptyView);
         m_updAdapter = new UpdAdapter();
         m_list.setAdapter(m_updAdapter);
-        m_list.setOnItemClickListener(new OnItemClickListener()
-            {
-                @Override
-                public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3)
+        m_list.setOnItemClickListener(
+                new OnItemClickListener()
                 {
-                    updateVocab(m_arUpdates.get(pos));
+                    @Override
+                    public void onItemClick(
+                            AdapterView<?> arg0,
+                            View arg1,
+                            int pos,
+                            long arg3)
+                    {
+                        updateVocab(m_arUpdates.get(pos));
                 }
-            }
+                }
         );
         setContentView(v);
         checkForUpdates();
-        super.onCreate(savedInstanceState);
     }
     st.UniObserver m_updEndCallback = new st.UniObserver()
     {

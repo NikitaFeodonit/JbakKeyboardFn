@@ -13,6 +13,7 @@
       <application 
           android:label="@string/ime_name" 
           android:icon="@drawable/icon"
+          android:theme="@style/JbakAppBaseTheme"
           >
 <!-- ============================================================================== -->
         <service android:name="ServiceJbKbd"
