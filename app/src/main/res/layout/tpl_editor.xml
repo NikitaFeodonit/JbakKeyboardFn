@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content">
+    
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+ <EditText
+ 	android:id="@+id/tpl_name"
+ 	android:hint="@string/tpl_name"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_alignParentTop="true"  
+	android:layout_alignParentLeft="true"
+	android:maxLines="1"  
+	android:inputType="text|textAutoCorrect|textAutoComplete"
+	/>
+
+ 	<Button android:id="@+id/tpl_save"
+			style="@style/img_button"
+			android:drawableTop="@drawable/save"
+			android:layout_alignParentLeft="true"
+			android:layout_below="@id/tpl_name"
+			android:text="@string/save"
+			/>
+	<Button android:id="@+id/close"
+			style="@style/img_button"
+			android:drawableTop="@drawable/close"
+			android:layout_toRightOf="@id/tpl_save"
+			android:layout_below="@id/tpl_name"
+			android:text="@string/mm_close"
+			/>
+	<Button android:id="@+id/delete"
+			style="@style/img_button"
+			android:drawableTop="@drawable/tpl_delete"
+			android:layout_toRightOf="@id/close"
+			android:layout_below="@id/tpl_name"
+			android:text="@string/delete"
+			/>
+	<Button android:id="@+id/tpl_spec_options"
+			android:drawableTop="@drawable/keyboard"
+			android:text="@string/tpl_spec_options"
+			style="@style/img_button"
+			android:layout_toRightOf="@id/delete"
+			android:layout_below="@id/tpl_name"
+			/>
+ <EditText
+ 	android:id="@+id/tpl_text"
+ 	android:hint="@string/tpl_text"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_below="@id/close"
+	android:minLines="3"
+	android:autoText="true"
+	android:inputType="textMultiLine"
+	android:gravity="top"  
+	/>
+</RelativeLayout>
+</ScrollView>

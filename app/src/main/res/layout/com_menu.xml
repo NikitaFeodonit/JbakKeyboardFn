@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  >
+<LinearLayout
+  android:id="@+id/com_menu_buttons"
+  android:layout_width="wrap_content"
+  android:layout_height="fill_parent"
+  android:orientation="vertical"
+	android:layout_alignParentTop="true"
+	android:layout_alignParentRight="true"
+>
+<Button
+  	style="@style/img_button"
+	android:drawableTop="@drawable/keyboard"
+	android:id="@+id/close"
+	android:text="@string/mm_close"
+/>  
+<Button
+  style="@style/img_button"
+  android:drawableTop="@drawable/tpl_add"
+  android:id="@+id/but_new_template"	
+  android:text="@string/tpl_new_template"
+/>
+<Button
+  style="@style/img_button"
+  android:drawableTop="@drawable/folder_add"
+  android:id="@+id/but_new_template_folder"	
+  android:text="@string/tpl_new_folder"
+/>
+<Button
+  style="@style/img_button"
+  android:drawableTop="@drawable/tpl_delete"
+  android:id="@+id/clear"	
+  android:text="@string/clear"
+/>
+</LinearLayout>
+<ListView
+  android:id="@+id/com_menu_container"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical"
+  android:layout_alignParentTop="true"
+  android:dividerHeight="0px"
+  android:divider="#00ffffff"
+  android:layout_alignParentBottom="true"
+  android:layout_alignParentLeft="true"
+  android:layout_toLeftOf="@id/com_menu_buttons"
+/>
+</RelativeLayout>

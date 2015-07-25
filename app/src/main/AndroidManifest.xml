@@ -1,0 +1,91 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+        package="com.jbak.JbakKeyboard"
+        android:versionName="0.97.7"
+        android:versionCode="35"
+        
+        >
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.VIBRATE"/>
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+<uses-sdk android:minSdkVersion="5"/>
+      <application 
+          android:label="@string/ime_name" 
+          android:icon="@drawable/icon"
+          >
+<!-- ============================================================================== -->
+        <service android:name="ServiceJbKbd"
+                android:permission="android.permission.BIND_INPUT_METHOD">
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+            <meta-data android:name="android.view.im" android:resource="@xml/method" />
+        </service>
+<!-- ============================================================================== -->
+        <service android:name="com.jbak.words.WordsService">
+        </service>
+<!-- ============================================================================== -->
+        <activity android:name="JbKbdPreference" 
+        		android:label="@string/ime_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+	        <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity> 
+        
+<!-- ============================================================================== -->
+            <activity android:name="UpdVocabActivity"
+        		  android:label="@string/set_key_ac_load_vocab"
+        	/>
+<!-- ============================================================================== -->
+        <activity android:name="SetKbdActivity"
+        	>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity> 
+<!-- ============================================================================== -->
+            <activity android:name="TplEditorActivity" 
+        			android:launchMode="singleTop" 
+        			android:label="@string/tpl_editor"
+        			android:finishOnTaskLaunch="true"
+        			android:excludeFromRecents="true"
+        			android:configChanges="keyboardHidden|orientation"
+        			>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+<!-- ============================================================================== -->
+		<activity android:name="LangSetActivity" 
+					android:label="@string/set_languages"
+					android:configChanges="orientation"
+					/>
+<!-- ============================================================================== -->
+		<activity android:name="AboutActivity" 
+					android:label="@string/about"
+					android:configChanges="orientation"
+					/>
+<!-- ============================================================================== -->
+		<activity android:name="EditSetActivity" 
+					android:label="@string/es_title"
+					android:configChanges="orientation"
+					/>
+<!-- ============================================================================== -->
+	<!-- admob -->
+				<activity android:name="com.google.ads.AdActivity"
+		              android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+				
+    <service android:name="com.google.android.voiceime.ServiceHelper" />
+    <activity
+        android:name="com.google.android.voiceime.ActivityHelper"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"
+        android:excludeFromRecents="true"
+        android:windowSoftInputMode="stateAlwaysHidden"
+        android:finishOnTaskLaunch="true"
+        android:configChanges="keyboardHidden|orientation"/>
+    				
+	</application>
+		              
+</manifest>
