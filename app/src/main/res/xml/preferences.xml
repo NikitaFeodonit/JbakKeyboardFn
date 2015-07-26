@@ -25,7 +25,6 @@
 
     <!-- 0 - Хелпер -->
     <Preference android:key="helper"/>
-    <!-- 0 - предпросмотр -->
 
     <ListPreference
         android:defaultValue="0"
@@ -35,6 +34,8 @@
         android:summary="@string/pref_themes_summary"
         android:title="@string/pref_themes_title"
         />
+
+    <!-- 0 - предпросмотр -->
     <ListPreference
         android:defaultValue="1"
         android:key="key_preview"
